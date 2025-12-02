@@ -118,7 +118,7 @@ cv["onRuntimeInitialized"] = async () => {
   await yolov8.run({ images: tensor });
 
   mySession = setSession({ net: yolov8, nms: nms });
-  
+
 };
 
 // Detect Image Function
@@ -292,10 +292,10 @@ class Colors {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
       ? `rgba(${[
-          parseInt(result[1], 16),
-          parseInt(result[2], 16),
-          parseInt(result[3], 16),
-        ].join(", ")}, ${alpha})`
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+      ].join(", ")}, ${alpha})`
       : null;
   };
 }
@@ -303,12 +303,12 @@ class Colors {
 // Run inference
 document.querySelector("#runInference").addEventListener("click", () => {
   document.querySelector("#runInference").style.display = "none";
-  
+
   const video = document.querySelector("#video");
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
   video.style.display = "block";
-  
+
   // Set video stream constraints
   const constraints = {
     audio: false,
@@ -343,7 +343,7 @@ document.querySelector("#runInference").addEventListener("click", () => {
   setTimeout(() => {
     document.querySelector("#stopInference").style.display = "block";
   }, 2000);
-  
+
 })
 
 // Stop inference
@@ -351,8 +351,8 @@ document.querySelector("#stopInference").addEventListener("click", () => {
   const video = document.querySelector("#video");
   video.style.display = "none";
   let stream = video.srcObject;
-  stream.getTracks().forEach(function (track) {    
-      track.stop();    
+  stream.getTracks().forEach(function (track) {
+    track.stop();
   })
   setTimeout(() => {
     document.querySelector("#stopInference").style.display = "none";
@@ -361,3 +361,8 @@ document.querySelector("#stopInference").addEventListener("click", () => {
 
 
 })
+
+// Register PWA service worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
